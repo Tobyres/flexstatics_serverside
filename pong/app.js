@@ -11,10 +11,7 @@ var netPartHeight = 50;
 var ballWidth = 10;
 var ballHeight = 10;
 var mobileDevice = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-var mc = new Hammer(topSide);
-mc.on("press", function () {
-    moveBatUpwards();
-});
+
 if (isCanvas(canvas)) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
