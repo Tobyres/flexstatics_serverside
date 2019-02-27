@@ -40,7 +40,7 @@ function drawBall() {
         ctx.fillStyle = "red";
     }
     else {
-        ctx.fillStyle = "ok";
+        ctx.fillStyle = "blue";
     }
     ctx.fillRect(window.innerWidth / 2 - ballWidth / 2, window.innerHeight / 2 - ballHeight / 2, ballWidth, ballHeight);
 }
@@ -51,8 +51,21 @@ function paint() {
     drawBall();
 }
 paint();
-topSide.addEventListener("touchend", moveBatUpwards, false);
-botSide.addEventListener("touchend", moveBatDownwards, false);
+topSide.ontouchstart = function () {
+    moveBatUpwards();
+};
+topSide.ontouchend = function () {
+    moveBatUpwards();
+};
+botSide.ontouchstart = function () {
+    moveBatDownwards();
+};
+botSide.ontouchend = function () {
+    moveBatDownwards();
+};
+topSide.onclick = function () {
+    moveBatUpwards();
+};
 document.body.onkeydown = function (event) {
     if (event.which === 40) {
         moveBatDownwards();
