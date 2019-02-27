@@ -1,4 +1,6 @@
 var canvas = document.getElementById('myCanvas');
+var topSide = document.getElementById('top');
+var botSide = document.getElementById('bot');
 var ctx;
 var mid;
 var batWidth = 20;
@@ -8,6 +10,7 @@ var netPartWidth = 10;
 var netPartHeight = 50;
 var ballWidth = 10;
 var ballHeight = 10;
+var mobileDevice = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 if (isCanvas(canvas)) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -33,7 +36,12 @@ function drawNet() {
     }
 }
 function drawBall() {
-    ctx.fillStyle = "red";
+    if (mobileDevice) {
+        ctx.fillStyle = "red";
+    }
+    else {
+        ctx.fillStyle = "ok";
+    }
     ctx.fillRect(window.innerWidth / 2 - ballWidth / 2, window.innerHeight / 2 - ballHeight / 2, ballWidth, ballHeight);
 }
 function paint() {
@@ -43,6 +51,8 @@ function paint() {
     drawBall();
 }
 paint();
+topSide.addEventListener("touchend", moveBatUpwards, false);
+botSide.addEventListener("touchend", moveBatDownwards, false);
 document.body.onkeydown = function (event) {
     if (event.which === 40) {
         moveBatDownwards();
