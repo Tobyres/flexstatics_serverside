@@ -27,8 +27,8 @@ io.on('connection', function (socket) {
         console.log("new player: " + name);
         io.emit('sendListF5', playersInLobby);
     });
-    socket.on('initGame', function (player2Id) {
-        io.emit('initGameFor', player2Id);
+    socket.on('initGame', function (ids) {
+        io.emit('initGameFor', ids);
     });
     socket.on('batLocChanged', function (message) {
         io.emit('refreshBatLoc', message);
