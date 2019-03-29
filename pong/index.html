@@ -142,18 +142,18 @@
         }
     });
 
-    socket.on('initGameFor', function (player2Id) {
-        if(player2Id === me.id){
+    socket.on('initGameFor', function (ids) {
+        let idsArr = ids.split("/");
+        me.player2Id = parseInt(ids[0]);
+        if(parseInt(idsArr[1]) === me.id){
             initGame(-1, false);
         }
     });
 
     socket.on('refreshBatLoc', function (message) {
         var arr = message.split("/");
-        console.log("ADFAF: " + parseInt(arr[1]));
 
        if(me.id === parseInt(arr[1])){
-           console.log("LOLOLOLOL");
            if(leftPlayer){
                batLeftY = parseInt(arr[0]);
            }else{
@@ -255,8 +255,9 @@
         }
 
         if(origin){
-            socket.emit('initGame', player2Id);
+            socket.emit('initGame', me.id + "/" + player2Id);
             leftPlayer = false;
+            me.player2Id = player2Id;
             console.log("on the right side");
         }else{
             leftPlayer = true;
@@ -265,6 +266,8 @@
 
         paint();
         spawnBall();
+
+        printMe();
     }
 
     function drawBats() {
@@ -391,6 +394,12 @@
         } while (angleX === 0 || angleY === 0 || (angleX <= 5 && angleX >= -5) || (angleY <= 5 && angleY >= -5));
         console.log("x");
         moveBall();
+    }
+
+    function printMe(){
+        console.log("name: " + me.name);
+        console.log("id: " + me.id);
+        console.log("player2Id: " + me.player2Id);
     }
 </script>
 </html>
